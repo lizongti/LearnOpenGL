@@ -1,9 +1,1 @@
-# universe
-start developing with unity
-
-test using github desktop
-
-why not turn
-
-1222
-
+# first project is for leaning opengl, ignore the name
