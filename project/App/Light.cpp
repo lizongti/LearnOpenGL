@@ -81,7 +81,7 @@ void UpdateLightsShader(ShaderProgram* shader_program)
         0.05f, 0.05f, 0.05f,
         0.8f, 0.8f, 0.8f,
         1.0f, 1.0f, 1.0f,
-        1.0f, 0.09f, 0.032f                 
+        1.0f, 0.09f, 0.032f,        
     };
 
     float spot_data[] = {
@@ -129,6 +129,11 @@ void UpdateLightsShader(ShaderProgram* shader_program)
         point.constant = next();
         point.linear = next();
         point.quadratic = next();
+#ifdef USE_GAMMA_CORRECTION
+        point.constant = 0;
+        point.linear = 1;
+        point.quadratic = 0;
+#endif
         point_vector.push_back(point);
     }
 
@@ -145,6 +150,11 @@ void UpdateLightsShader(ShaderProgram* shader_program)
         spot.constant = next();
         spot.linear = next();
         spot.quadratic = next();
+#ifdef USE_GAMMA_CORRECTION
+        spot.constant = 0;
+        spot.linear = 1;
+        spot.quadratic = 0;
+#endif
         spot.cutOff = glm::cos(glm::radians(next()));
         spot.outerCutOff = glm::cos(glm::radians(next()));
         spot_vector.push_back(spot);

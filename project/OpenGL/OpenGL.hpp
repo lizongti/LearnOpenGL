@@ -23,5 +23,6 @@
 #include <OpenGL/IO.hpp>
 #include <OpenGL/Light.hpp>
 
+#define USE_GAMMA_CORRECTION 1
 
 #endif
