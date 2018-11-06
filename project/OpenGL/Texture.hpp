@@ -123,7 +123,7 @@ public:
 	MipMapTexture() : Texture()
 	{};
 
-	bool Load(const std::string& resource)
+	bool Load(const std::string& resource, bool srgb = false)
 	{
 		glBindTexture(GL_TEXTURE_2D, texture_);
 		int width, height, channels;
@@ -133,11 +133,25 @@ public:
 		{
 			if (boost::ends_with(resource, ".jpg"))
 			{
-				glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
+				if (srgb)
+				{
+					glTexImage2D(GL_TEXTURE_2D, 0, GL_SRGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
+				}
+				else
+				{
+					glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
+				}
 			}
 			else if (boost::ends_with(resource, ".png"))
 			{
-				glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
+				if (srgb)
+				{
+					glTexImage2D(GL_TEXTURE_2D, 0, GL_SRGB, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
+				}
+				else
+				{
+					glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
+				}
 			}
 			else
 			{
