@@ -31,6 +31,12 @@ public:
         glUniform1f(glGetUniformLocation(shader_program_->index(), name.c_str()), value); 
     };
 
+    //vec3
+    void Set(const std::string& name, glm::vec3& value)
+    {
+        glUniform3f(glGetUniformLocation(shader_program_->index(), name.c_str()), value[0], value[1], value[2]);
+    };
+
     // multiple vector for int
     void Set(const std::string& name, size_t element_num, size_t vector_num, const int* values)
     {
@@ -49,7 +55,7 @@ public:
                 glUniform4iv(glGetUniformLocation(shader_program_->index(), name.c_str()), vector_num, values);
                 return;
             default:
-                std::cerr << "[SHADER] value num is not supported! shader progarm : " << shader_program_->index() << std::endl;
+                std::cerr << "[SHADER] value num is not supported! shader program : " << shader_program_->index() << std::endl;
                 return;           
         }
     };
@@ -119,7 +125,6 @@ public:
                 return;           
         }
     };
-
 
 private:
     ShaderProgram* shader_program_;

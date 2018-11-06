@@ -21,6 +21,7 @@
 #include <OpenGL/Texture.hpp>
 #include <OpenGL/MVP.hpp>
 #include <OpenGL/IO.hpp>
+#include <OpenGL/Light.hpp>
 
 
 #endif

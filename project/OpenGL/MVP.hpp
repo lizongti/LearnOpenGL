@@ -161,7 +161,22 @@ public:// projection related
         projection_ = glm::perspective(glm::radians(cull_angle_), width_ / height_, near_, far_);
         return this;
     };
-    
+public:
+    glm::vec3 object_pos() { return object_pos_; };
+    glm::vec3 object_scale() { return object_scale_; };
+    glm::vec3 object_rotate_axis() { return object_rotate_axis_; };
+    float object_rotate_angle() { return object_rotate_angle_; };
+
+    glm::vec3 camera_pos() { return camera_pos_; };
+    glm::vec3 camera_front() { return camera_front_; };
+    glm::vec3 camera_up() { return camera_up_; };
+
+    float width() { return width_; };
+    float height() { return height_; };
+    float near() { return near_; };
+    float far() { return far_; }; 
+    float cull_angle() { return cull_angle_; };  
+
 protected:
     glm::vec3 object_pos_;
     glm::vec3 object_scale_;
