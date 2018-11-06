@@ -35,7 +35,7 @@ public:
 	
 	virtual void Mode() = 0;
 
-	virtual bool Load(const std::string& resource) = 0;
+	virtual bool Load(const std::string& resource, bool srgb = false) = 0;
 
 protected:
 	void Mode(uint32_t min_filter, uint32_t mag_filter, uint32_t s_wrap, uint32_t t_wrap,  float* s_border_color = nullptr, float* t_border_color = nullptr)
@@ -90,7 +90,7 @@ public:
 	virtual ~SimpleTexture()
 	{};
 
-	bool Load(const std::string& resource)
+	bool Load(const std::string& resource, bool srgb = false)
 	{
 		glBindTexture(GL_TEXTURE_2D, texture_);
 		int width, height, channels;
@@ -98,7 +98,15 @@ public:
 		unsigned char* data = stbi_load(resource.c_str(), &width, &height, &channels, 0);
 		if (data)
 		{
-			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
+			if (srgb)
+			{
+				glTexImage2D(GL_TEXTURE_2D, 0, GL_SRGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
+			}
+			else
+			{
+				glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
+			}
+
 			stbi_image_free(data);
 			
 			loaded_ = true;
