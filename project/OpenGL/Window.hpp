@@ -46,6 +46,12 @@ public:
 
         glEnable(GL_DEPTH_TEST);
 
+#ifdef USE_CULL_FACE
+        glEnable(GL_CULL_FACE);
+        glCullFace(GL_FRONT);
+        glFrontFace(GL_CCW);
+#endif
+
         init_cb_(window_);
         
         return true;
@@ -60,6 +66,9 @@ public:
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); 
 
             update_cb_(window_);
+
+            glfwSwapBuffers(window_);
+            glfwPollEvents();
         }
 
         return true;

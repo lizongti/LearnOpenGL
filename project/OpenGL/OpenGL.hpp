@@ -24,5 +24,6 @@
 #include <OpenGL/Light.hpp>
 
 #define USE_GAMMA_CORRECTION 1
+#define USE_CULL_FACE 1
 
 #endif
