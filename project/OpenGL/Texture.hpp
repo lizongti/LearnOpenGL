@@ -185,4 +185,93 @@ public:
 	};
 };
 
+class CubeTexture : public Texture
+{
+public:
+	CubeTexture() : Texture()
+	{};
+
+	virtual ~CubeTexture()
+	{};
+
+	virtual bool Load(const std::string& resource, bool srgb = false)
+	{
+		std::vector<std::string> resource_vector;
+		resource_vector.push_back((boost::format(resource) % "right").str());
+		resource_vector.push_back((boost::format(resource) % "left").str());
+		resource_vector.push_back((boost::format(resource) % "top").str());
+		resource_vector.push_back((boost::format(resource) % "bottom").str());
+		resource_vector.push_back((boost::format(resource) % "front").str());
+		resource_vector.push_back((boost::format(resource) % "back").str());
+
+		glBindTexture(GL_TEXTURE_CUBE_MAP, texture_);
+		for(uint32_t index = 0; index < resource_vector.size(); ++index)
+		{			
+			auto& resource = resource_vector[index];
+			int width, height, channels;
+			unsigned char* data = stbi_load(resource.c_str(), &width, &height, &channels, 0);
+			if (data)
+			{
+				if (boost::ends_with(resource, ".jpg"))
+				{
+					if (srgb)
+					{
+						glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + index, 0, GL_SRGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
+					}
+					else
+					{
+						glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + index, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
+					}
+				}
+				else if (boost::ends_with(resource, ".png"))
+				{
+					if (srgb)
+					{
+						glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + index, 0, GL_SRGB, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
+					}
+					else
+					{
+						glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + index, 0, GL_RGB, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
+					}
+				}
+				else
+				{
+					std::cerr << "[Texture] resource suffix is not valid! resource is " << resource << std::endl;
+				}
+				
+				stbi_image_free(data);
+			}
+			else
+			{
+				std::cerr << "[Texture] Failed to load texture! texture is " << resource << std::endl;
+				return false;
+			}
+		}
+		return true;
+	};
+
+	virtual void Mode()
+	{
+		glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+		glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+		glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+		glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+		glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
+	};
+
+	virtual void Use(uint32_t unit)
+	{
+		glActiveTexture((uint32_t)GL_TEXTURE0 + unit);
+		glBindTexture(GL_TEXTURE_CUBE_MAP, texture_);
+	};
+
+	virtual void Import(const std::string& resource)
+	{
+		glBindTexture(GL_TEXTURE_CUBE_MAP, texture_);
+		Mode();
+		Load(resource);
+		glBindTexture(GL_TEXTURE_CUBE_MAP, 0);
+	};
+};
+
 #endif

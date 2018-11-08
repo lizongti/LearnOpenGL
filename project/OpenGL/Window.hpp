@@ -54,7 +54,7 @@ public:
 
         init_cb_(window_);
         
-        return true;
+      return true;
     };
 
     bool Run()
