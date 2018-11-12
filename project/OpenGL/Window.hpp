@@ -28,6 +28,10 @@ public:
         glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
         glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 
+#ifdef USE_MSAA
+        glfwWindowHint(GLFW_SAMPLES, USE_MSAA);
+#endif
+
         /* Create a windowed mode window and its OpenGL context */
         window_ = glfwCreateWindow(800, 600, "Welome to opengl project", NULL, NULL);
         if (!window_)
@@ -50,6 +54,10 @@ public:
         glEnable(GL_CULL_FACE);
         glCullFace(GL_FRONT);
         glFrontFace(GL_CCW);
+#endif
+
+#ifdef USE_MSAA
+        glEnable(GL_MULTISAMPLE);
 #endif
 
         init_cb_(window_);

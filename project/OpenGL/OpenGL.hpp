@@ -25,5 +25,6 @@
 
 #define USE_GAMMA_CORRECTION 1
 #define USE_CULL_FACE 1
+#define USE_MSAA 16
 
 #endif
