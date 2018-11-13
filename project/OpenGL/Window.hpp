@@ -60,6 +60,9 @@ public:
         glEnable(GL_MULTISAMPLE);
 #endif
 
+        glEnable(GL_BLEND);
+        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
         init_cb_(window_);
         
       return true;

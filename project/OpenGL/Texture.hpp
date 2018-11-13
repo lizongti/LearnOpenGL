@@ -125,6 +125,50 @@ public:
 	};
 };
 
+class TransparentTexture : public Texture
+{
+public:
+	TransparentTexture() : Texture()
+	{};
+
+	virtual ~TransparentTexture()
+	{};
+
+	bool Load(const std::string& resource, bool srgb = false)
+	{
+		glBindTexture(GL_TEXTURE_2D, texture_);
+		int width, height, channels;
+		unsigned char* data = stbi_load(resource.c_str(), &width, &height, &channels, 0);
+		if (data)
+		{
+			if (srgb)
+			{
+				glTexImage2D(GL_TEXTURE_2D, 0, GL_SRGB, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
+			}
+			else
+			{
+				glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
+			}
+			glGenerateMipmap(GL_TEXTURE_2D);
+
+			stbi_image_free(data);
+			
+			loaded_ = true;
+			return true;
+		}
+		else
+		{
+			std::cerr << "[Texture] Failed to load texture! texture is " << resource << std::endl;
+			return false;
+		}
+	};
+
+	void Mode()
+	{
+		Texture::Mode(GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE);
+	};	
+};
+
 class MipMapTexture : public Texture
 {
 public:
