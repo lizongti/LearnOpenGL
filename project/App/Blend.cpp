@@ -424,9 +424,9 @@ int main(int argc, char** argv)
         texture3->Use(1);
 
         transparent_vao->Work([&](){
-            Uniform(skybox_shader_program).Set("transparent", 1);
-            Uniform(skybox_shader_program).Set("view", 4, 1, Singleton<FPSMVP>::instance().view());
-            Uniform(skybox_shader_program).Set("projection", 4, 1, Singleton<FPSMVP>::instance().projection());
+            Uniform(transparent_shader_program).Set("transparent", 1);
+            Uniform(transparent_shader_program).Set("view", 4, 1, Singleton<FPSMVP>::instance().view());
+            Uniform(transparent_shader_program).Set("projection", 4, 1, Singleton<FPSMVP>::instance().projection());
             glDrawArraysInstanced(GL_TRIANGLES, 0, 6, 5);
         });
     };
