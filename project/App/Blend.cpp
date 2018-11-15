@@ -149,7 +149,7 @@ void PrepareTransparentVertexs(VertexBuffer* vertex_buffer)
 void PrepareTransparentModelVertexs(VertexBuffer* vertex_buffer)
 {
     //prepare model mat4, from far to near
-    //对于不规则的透明物体或者透明面来说，不能采用如此简单的计算方法
+    //对于不规则的透明物体或者透明面来说，不能采用如此简单的计算方法， 这个只是静态模拟，切换视角后就会出错。
     glm::vec3 unsorted_windows_position[] = {
         glm::vec3( 1.5f, 0.0f, 0.51f),
         glm::vec3( 0.0f, 0.0f, 0.7f),
