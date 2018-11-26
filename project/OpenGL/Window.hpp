@@ -33,7 +33,7 @@ public:
 #endif
 
         /* Create a windowed mode window and its OpenGL context */
-        window_ = glfwCreateWindow(800, 600, "Welome to opengl project", NULL, NULL);
+        window_ = glfwCreateWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Welome to opengl project", NULL, NULL);
         if (!window_)
         {
             glfwTerminate();

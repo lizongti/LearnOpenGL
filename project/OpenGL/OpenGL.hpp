@@ -13,6 +13,14 @@
 #define STB_IMAGE_IMPLEMENTATION
 #include <External/stb_image.h>
 
+
+#define USE_GAMMA_CORRECTION 1
+//#define USE_CULL_FACE 1
+#define USE_MSAA 16
+#define USE_VSYNC 1
+#define SCREEN_WIDTH 800.0f
+#define SCREEN_HEIGHT 600.0f
+
 #include <OpenGL/Buffer.hpp>
 #include <OpenGL/Profile.hpp>
 #include <OpenGL/Shader.hpp>
@@ -22,9 +30,6 @@
 #include <OpenGL/MVP.hpp>
 #include <OpenGL/IO.hpp>
 #include <OpenGL/Light.hpp>
-
-#define USE_GAMMA_CORRECTION 1
-#define USE_CULL_FACE 1
-#define USE_MSAA 16
+//#include <OpenGL/Frame.hpp>
 
 #endif

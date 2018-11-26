@@ -79,7 +79,7 @@ protected:
 class ApplicatedMVP : public MVP
 {
 public:
-    ApplicatedMVP():MVP(), width_(800), height_(600), near_(1), far_(5000), cull_angle_(45)
+    ApplicatedMVP():MVP(), width_(SCREEN_WIDTH), height_(SCREEN_HEIGHT), near_(1), far_(5000), cull_angle_(45)
     {};
 
     virtual ~ApplicatedMVP()
@@ -201,7 +201,7 @@ public:
     FPSMVP()
     {
         ZoomRefAbs(45.0);
-        ViewPortAbs(800.0f, 600.0f);
+        ViewPortAbs(SCREEN_WIDTH, SCREEN_HEIGHT);
         ViewDistanceAbs(1.0f, 5000.0f);
 
         camera_up_ = glm::vec3(0.0f, 1.0f, 0.0f);
