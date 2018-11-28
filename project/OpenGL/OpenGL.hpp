@@ -30,6 +30,6 @@
 #include <OpenGL/MVP.hpp>
 #include <OpenGL/IO.hpp>
 #include <OpenGL/Light.hpp>
-//#include <OpenGL/Frame.hpp>
+#include <OpenGL/Frame.hpp>
 
 #endif
